@@ -1,5 +1,6 @@
 // Import React
 import React from 'react';
+import CodeSlide from 'spectacle-code-slide';
 
 // Import Spectacle Core tags
 import {
@@ -8,100 +9,82 @@ import {
   Deck,
   Heading,
   Image,
-  List,
-  ListItem,
   Notes,
   Quote,
-  Slide,
-  Text
+  Slide
 } from 'spectacle';
 
-// Import theme
+import preloader from 'spectacle/lib/utils/preloader';
 import createTheme from 'spectacle/lib/themes/default';
 
 const images = {
-  formidagon: require('../assets/formidable-logo.svg'),
   goodWork: require('../assets/good-work.gif')
 };
+preloader(images);
 
 // Require CSS
 require('normalize.css');
 
 const theme = createTheme(
   {
-    primary: 'white',
-    secondary: '#1F2022',
-    tertiary: '#03A9FC',
-    quaternary: '#CECECE'
+    primary: 'black',
+    secondary: 'white',
+    tertiary: 'hotpink'
   },
   {
-    primary: 'Montserrat',
-    secondary: 'Helvetica'
+    primary: 'Montserrat'
   }
 );
 
 export default class Presentation extends React.Component {
   render() {
+    const codeSlideTitle = (<Heading textColor="primary" size={4}>index.js</Heading>);
     return (
       <Deck
-        transition={['zoom', 'slide']}
+        transition={['slide']}
         transitionDuration={500}
         theme={theme}
+        progress="bar"
       >
-        <Slide transition={['zoom']} bgColor="primary">
-          <Heading size={1} fit caps lineHeight={1} textColor="secondary">
-            Spectacle Boilerplate
-          </Heading>
-          <Text margin="10px 0 0" textColor="tertiary" fit bold>
-            open the presentation/index.js file to get started
-          </Text>
-        </Slide>
         <Slide bgColor="secondary">
-          <Image src={images.formidagon} width={800} />
+          <Heading size={1} caps lineHeight={1} textColor="primary">
+            Presentation
+          </Heading>
         </Slide>
-        <Slide transition={['fade']} bgColor="tertiary">
-          <Heading size={6} textColor="primary" caps>
-            Typography
-          </Heading>
-          <Heading size={1} textColor="secondary">
-            Heading 1
-          </Heading>
-          <Heading size={2} textColor="secondary">
-            Heading 2
-          </Heading>
-          <Heading size={3} textColor="secondary">
-            Heading 3
-          </Heading>
-          <Heading size={4} textColor="secondary">
-            Heading 4
-          </Heading>
-          <Heading size={5} textColor="secondary">
-            Heading 5
-          </Heading>
-          <Text size={6} textColor="secondary">
-            Standard text
-          </Text>
-        </Slide>
-        <Slide transition={['fade']} bgColor="primary" textColor="tertiary">
-          <Heading size={6} textColor="secondary" caps>
-            Standard List
-          </Heading>
-          <List>
-            <ListItem>Item 1</ListItem>
-            <ListItem>Item 2</ListItem>
-            <ListItem>Item 3</ListItem>
-            <ListItem>Item 4</ListItem>
-          </List>
-        </Slide>
-        <Slide transition={['fade']} bgColor="secondary" textColor="primary">
+        <Slide bgColor="secondary" textColor="primary">
           <BlockQuote>
-            <Quote>Example Quote</Quote>
-            <Cite margin="10px 0 0 30px">Author</Cite>
+            <Quote>Something</Quote>
+            <Cite margin="10px 0 0 30px">Someone</Cite>
           </BlockQuote>
         </Slide>
-        <Slide>
+        <CodeSlide
+          bgColor="secondary"
+          lang="jsx"
+          code={require('raw-loader!../assets/code.example')}
+          textSize=".7em"
+          showLineNumbers={false}
+          ranges={[
+            {
+              loc: [0, 7],
+              title: codeSlideTitle
+            },
+            {
+              loc: [0, 1],
+              title: codeSlideTitle,
+              note: 'see this?'
+            },
+            {
+              loc: [1, 6],
+              title: codeSlideTitle,
+              note: 'well it gets used here'
+            }
+          ]}
+          transition={[]}
+          transitionDuration={0}
+        />
+        <Slide bgColor="secondary">
           <Image src={images.goodWork} width={500} />
-          <Notes>gifs work too</Notes>
+          <Notes>remember to mention that thing</Notes>
         </Slide>
       </Deck>
     );
